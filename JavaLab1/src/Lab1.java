@@ -65,8 +65,24 @@ public class Lab1 {
         // Task 9: Дан массив [15,10,51,-6,-5,3,-10,-34,0,32,56,-12,24,-52] Вывести в обратном порядке
         int[] t9_array = {15,10,51,-6,-5,3,-10,-34,0,32,56,-12,24,-52};
         for (int i = t9_array.length-1; i>=0; i--) System.out.print(t9_array[i] + " ");
-
+        System.out.println("");
         // Task 10: Дан массив [15,10,0,-6,-5,3,0,-34,0,32,56,0,24,-52] переместить нули в конец
+        int[] t10_array = {15,10,0,-6,-5,3,0,-34,0,32,56,0,24,-52};
+
+        for (int i = t10_array.length-1; i >= 0; i--) {
+            if (t10_array[i] == 0) {
+                for (int j = i; j < t10_array.length-1; j++) {
+                    if (t10_array[j+1] != 0) {
+                        int temp10 = t10_array[j];
+                        t10_array[j] = t10_array[j+1];
+                        t10_array[j+1] = temp10;
+                    }
+                }
+            }
+        }
+        for (int d :t10_array ) {
+            System.out.print(d+" ");
+        }
     }
 
     public static int max(int[] arr) {
