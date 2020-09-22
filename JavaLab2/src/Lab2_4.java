@@ -1,0 +1,12 @@
+public class Lab2_4 {
+    public static void main(String[] main) {
+        System.out.println("Задача 4. Интерфейсы");
+        Shape[] shapes = new Shape[3];
+        shapes[0] = new Triangle(3,4,5);
+        shapes[1] = new Circle(3);
+        shapes[2] = new Rectangle(3,4);
+        for (Shape sh: shapes) {
+            System.out.println("Площадь фигуры: "+ sh.square());
+        }
+    }
+}
