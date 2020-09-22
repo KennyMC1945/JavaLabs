@@ -1,3 +1,5 @@
+package task1;
+
 public class Lab2_1 {
     public static void main(String[] args) {
         System.out.println("Задача 1. Класс Phone");
@@ -16,8 +18,8 @@ public class Lab2_1 {
             System.out.println(p.number + ": "+ p.model+" весом в "+ p.weight + " г.");
 
         }
-        phones[0].receiveCall("Student");
-        phones[0].receiveCall("Student", "+79859605213");
+        phones[0].receiveCall("task3.Student");
+        phones[0].receiveCall("task3.Student", "+79859605213");
         phones[0].sendMessage("+796390123456","+79035123545");
     }
 

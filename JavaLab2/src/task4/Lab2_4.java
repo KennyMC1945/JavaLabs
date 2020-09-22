@@ -1,3 +1,5 @@
+package task4;
+
 public class Lab2_4 {
     public static void main(String[] main) {
         System.out.println("Задача 4. Интерфейсы");

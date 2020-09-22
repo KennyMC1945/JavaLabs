@@ -1,3 +1,5 @@
+package task2;
+
 public class Lab2_2 {
     public static void main(String[] args){
         System.out.println("Задача 2. Класс Animal и его потомки");
@@ -7,7 +9,7 @@ public class Lab2_2 {
         animals[2] = new Horse("Овес", "Загон", 100);
         Vet vet = new Vet();
         for (Animal animal: animals){
-            vet.treatAnimal(animal); // Срабатывает метод из класса Animal
+            vet.treatAnimal(animal); // Срабатывает метод из класса task2.Animal
         }
     }
 }

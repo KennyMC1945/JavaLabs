@@ -1,3 +1,5 @@
+package task5;
+
 public class Engine {
     int power;
     String manufacturer;
