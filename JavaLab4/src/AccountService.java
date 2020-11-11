@@ -88,7 +88,7 @@ public class AccountService {
         Account acc = find(accountId).second;
         System.out.println(acc.getAmount());
     }
-    void deposit(int accountId, int amount) throws NotEnoughMoneyException, UnknownAccountException, IOException {
+    void deposit(int accountId, int amount) throws UnknownAccountException, IOException {
         Pair<Integer, Account> result = find(accountId);
         Account acc = result.second;
         int record = result.first;
