@@ -1,10 +1,28 @@
-import java.io.IOException;
+package spring;
+
+import exception.NotEnoughMoneyException;
+import exception.UnknownAccountException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import service.AccountService;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class JavaLab4 {
-    public static void main(String[] args) throws IOException {
-        AccountService accServ = new AccountService();
+@SpringBootApplication
+public class JavaLab4Spring implements CommandLineRunner {
+
+    @Autowired
+    private AccountService accServ;
+
+    public static void main(String[] args) {
+        SpringApplication.run(JavaLab4Spring.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
         Scanner in = new Scanner(System.in);
         boolean run = true;
         System.out.println("Программа управления счетами");
@@ -20,7 +38,7 @@ public class JavaLab4 {
             ArrayList<Integer> numArgs = new ArrayList<>();
             /* Блок проверки аргументов */
             try {
-                for (int i = 1; i< cmdArgs.length; i++) {
+                for (int i = 1; i < cmdArgs.length; i++) {
                     numArgs.add(Integer.parseInt(cmdArgs[i]));
                 }
             } catch (NumberFormatException nfe) {
@@ -41,7 +59,7 @@ public class JavaLab4 {
                     break;
                 case "withdraw":
                     try {
-                        if (numArgs.size() != 2 ) throw new IllegalArgumentException();
+                        if (numArgs.size() != 2) throw new IllegalArgumentException();
                         accServ.withdraw(numArgs.get(0), numArgs.get(1));
                         System.out.println("Операция успешно выполнена!");
                     } catch (UnknownAccountException uae) {
@@ -54,7 +72,7 @@ public class JavaLab4 {
                     break;
                 case "deposit":
                     try {
-                        if (numArgs.size() != 2 ) throw new IllegalArgumentException();
+                        if (numArgs.size() != 2) throw new IllegalArgumentException();
                         accServ.deposit(numArgs.get(0), numArgs.get(1));
                         System.out.println("Операция успешно выполнена!");
                     } catch (UnknownAccountException uae) {
@@ -65,7 +83,7 @@ public class JavaLab4 {
                     break;
                 case "transfer":
                     try {
-                        if (numArgs.size() != 3) throw  new IllegalArgumentException();
+                        if (numArgs.size() != 3) throw new IllegalArgumentException();
                         accServ.transfer(numArgs.get(0), numArgs.get(1), numArgs.get(2));
                         System.out.println("Операция успешно выполнена!");
                     } catch (UnknownAccountException uae) {

@@ -1,5 +1,10 @@
+package service;
+
+import account.Account;
+import exception.NotEnoughMoneyException;
+import exception.UnknownAccountException;
+
 import java.io.*;
-import java.util.Map;
 import java.util.Random;
 
 class Pair<K, V> {
@@ -13,13 +18,13 @@ class Pair<K, V> {
 
 }
 
-public class AccountService {
+public class FileAccountService implements AccountService {
     private static final String DB_FILENAME = "accounts.db";
     private static final String[] NAMES = {"A. Smith", "T. Armstrong", "A. Lee", "J. Edison",
             "T. Ericson", "M. Tetcher", "B. Stohalski", "S. Valeska", "J. Carry", "M. Watson"};
     private static final int DB_BASEUSERS = 10;
     private static final int RECORD_SIZE = 48;
-    public AccountService() throws IOException{
+    public FileAccountService() throws IOException{
         checkDB();
     }
 
@@ -74,8 +79,8 @@ public class AccountService {
         }
         throw new UnknownAccountException("Нет такого клиента");
     }
-
-    void withdraw(int accountId, int amount) throws NotEnoughMoneyException, UnknownAccountException, IOException{
+    @Override
+    public void withdraw(int accountId, int amount) throws NotEnoughMoneyException, UnknownAccountException, IOException{
         Pair<Integer, Account> result = find(accountId);
         Account acc = result.second;
         if (acc.getAmount() < amount) throw new NotEnoughMoneyException();
@@ -84,11 +89,13 @@ public class AccountService {
         RandomAccessFile raf = new RandomAccessFile(DB_FILENAME, "rw");
         writeAccount(raf, acc, record);
     }
-    void balance(int accountId) throws IOException, UnknownAccountException {
+    @Override
+    public void balance(int accountId) throws IOException, UnknownAccountException {
         Account acc = find(accountId).second;
         System.out.println(acc.getAmount());
     }
-    void deposit(int accountId, int amount) throws UnknownAccountException, IOException {
+    @Override
+    public void deposit(int accountId, int amount) throws UnknownAccountException, IOException {
         Pair<Integer, Account> result = find(accountId);
         Account acc = result.second;
         int record = result.first;
@@ -96,7 +103,8 @@ public class AccountService {
         RandomAccessFile raf = new RandomAccessFile(DB_FILENAME, "rw");
         writeAccount(raf, acc, record);
     }
-    void transfer(int from, int to, int amount) throws NotEnoughMoneyException, UnknownAccountException, IOException {
+    @Override
+    public void transfer(int from, int to, int amount) throws NotEnoughMoneyException, UnknownAccountException, IOException {
         Pair<Integer, Account> from_info = find(from);
         Pair<Integer, Account> to_info = find(to);
         Account from_acc = from_info.second;
@@ -111,13 +119,4 @@ public class AccountService {
         writeAccount(raf, to_acc, to_record);
     }
 
-    public static void main(String[] args) throws IOException, UnknownAccountException, NotEnoughMoneyException{
-        AccountService accServ = new AccountService();
-        accServ.balance(5);
-        accServ.balance(3);
-        accServ.transfer(5, 3, 10000);
-        accServ.balance(5);
-        accServ.balance(3);
-
-    }
 }
